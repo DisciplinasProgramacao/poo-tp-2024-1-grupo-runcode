@@ -9,7 +9,6 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 * Yuri Lucas Silva Ferreira
 * Pedro Henrique Macena Rocha
 * Ryan da Silva Duarte
-* Nome completo do aluno 5
 
 ## Professores responsáveis
 

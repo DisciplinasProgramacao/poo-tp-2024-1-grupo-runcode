@@ -16,7 +16,7 @@ namespace Restaurante_POO
             filaEspera = new Queue<Cliente>();
             mesas = new List<Mesa>();
 
-            // Criando mesas
+            // Criando mesa
             for (int i = 1; i <= 4; i++)
             {
                 mesas.Add(new Mesa(i, 4));

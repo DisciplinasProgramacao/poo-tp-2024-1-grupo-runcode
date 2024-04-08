@@ -10,8 +10,16 @@ public class Requisicao
     private int quantidadrClientes;
     private Mesa mesa;
 
-    public init()
+    public void requisicao(Cliente cliente, int quantidadeCliente)
     {
+        this.cliente = cliente;
+        this.dataRequisicao = new DateTime();
+        this.quantidadrClientes = quantidadeCliente;
     }
-    jhsdjfhsdfhsi
+
+    public void encerrarRequisicao()
+    {
+        this.horaSaida = new DateTime();
+    }
+    
 }

@@ -14,7 +14,10 @@ public class Requisicao
     {
         this.cliente = cliente;
         this.dataRequisicao = new DateTime();
-        this.quantidadrClientes = quantidadeCliente;
+        this.horaEntrada = null;
+        this.horaSaida = null;
+        this.quantidadeClientes = quantidadeCliente;
+        this.mesa = null;
     }
 
     public void encerrarRequisicao()

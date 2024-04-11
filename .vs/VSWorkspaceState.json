@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\codigo"
+    "\\codigo",
+    "\\docs",
+    "\\docs\\diagramas"
   ],
+  "SelectedNode": "\\codigo",
   "PreviewInSolutionExplorer": false
 }

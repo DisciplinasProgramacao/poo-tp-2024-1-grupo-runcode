@@ -4,12 +4,17 @@ using System.Collections.Generic;
 
 namespace runcode_poo.codigo
 {
-    public class Program
+    class Program
     {
         static void Main()
         {
             // Crie uma lista para armazenar as requisições
               List<Requisicao> listaRequisicoes = new List<Requisicao>();
+
+            Produto p1 = new Produto("castanha", "boa", 18.0, "grãos");
+
+            Cardapio c1 = new Cardapio();
+            c1.AdicionarProduto(p1);
 
             // Exemplo de criação de uma requisição
             Cliente cliente1 = new Cliente("João");
@@ -26,9 +31,11 @@ namespace runcode_poo.codigo
             // Exemplo de uso posterior das requisições
             foreach (var req in listaRequisicoes)
             {
-                Console.WriteLine($"Cliente rodade");
+                Console.WriteLine($"Cliente {req.ToString()}");
                 // Faça outras operações com os dados da requisição
             }
+
+            Console.ReadKey();
         }
     }
 }

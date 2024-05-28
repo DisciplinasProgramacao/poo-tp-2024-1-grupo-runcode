@@ -15,7 +15,7 @@ namespace runcode_poo.codigo
         private DateTime? horaEntrada;
         private DateTime? horaSaida;
         private int quantidadeClientes;
-       // private Mesa mesa;
+        private Mesa? mesa;
 
         public Requisicao(Cliente cliente, int quantidadeCliente)
         {
@@ -24,18 +24,28 @@ namespace runcode_poo.codigo
             this.horaEntrada = null;
             this.horaSaida = null;
             this.quantidadeClientes = quantidadeCliente;
-         //   this.mesa = null;
+            this.mesa = null;
         }
-
+         
         public void encerrarRequisicao()
         {
             this.horaSaida = new DateTime();
         }
 
-        //public void addMesaRequisicao(Mesa mesa)
-        //{
-        //    this.mesa = mesa;
-        //}
+        public void addMesaRequisicao(Mesa mesa)
+        {
+            this.mesa = mesa;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder relat = new StringBuilder();
+
+            relat.AppendLine("=====================");
+            relat.AppendLine(cliente.RetornarNome() + " - " + this.dataRequisicao.ToShortDateString());
+            relat.Append("=====================");
+            return relat.ToString();
+        }
 
 
     }

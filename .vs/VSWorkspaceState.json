@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\codigo"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\runcode-poo.sln",
+=======
+>>>>>>> 8a5317b4234bb3271871127a08bbff1e042b7d91
   "PreviewInSolutionExplorer": false
 }

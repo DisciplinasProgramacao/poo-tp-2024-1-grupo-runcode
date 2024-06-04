@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\bin\Debug\net6.0\runcode-poo.exe
 C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\bin\Debug\net6.0\runcode-poo.deps.json
 C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\bin\Debug\net6.0\runcode-poo.runtimeconfig.json
@@ -13,3 +14,19 @@ C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\obj\Debug\net6.0\refint\
 C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\obj\Debug\net6.0\runcode-poo.pdb
 C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\obj\Debug\net6.0\runcode-poo.genruntimeconfig.cache
 C:\Users\filip\Source\Repos\poo-tp-2024-1-grupo-runcode\obj\Debug\net6.0\ref\runcode-poo.dll
+=======
+C:\Users\macen\Documents\puc\poo2\n-runcode\bin\Debug\net6.0\runcode-poo.exe
+C:\Users\macen\Documents\puc\poo2\n-runcode\bin\Debug\net6.0\runcode-poo.deps.json
+C:\Users\macen\Documents\puc\poo2\n-runcode\bin\Debug\net6.0\runcode-poo.runtimeconfig.json
+C:\Users\macen\Documents\puc\poo2\n-runcode\bin\Debug\net6.0\runcode-poo.dll
+C:\Users\macen\Documents\puc\poo2\n-runcode\bin\Debug\net6.0\runcode-poo.pdb
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.AssemblyInfoInputs.cache
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.AssemblyInfo.cs
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.csproj.CoreCompileInputs.cache
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.dll
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\refint\runcode-poo.dll
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.pdb
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\runcode-poo.genruntimeconfig.cache
+C:\Users\macen\Documents\puc\poo2\n-runcode\obj\Debug\net6.0\ref\runcode-poo.dll
+>>>>>>> 8a5317b4234bb3271871127a08bbff1e042b7d91

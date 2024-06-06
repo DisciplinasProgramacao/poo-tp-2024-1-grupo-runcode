@@ -6,36 +6,65 @@ namespace runcode_poo.codigo
 {
     class Program
     {
-        static void Main()
+        public static void Main(string[] args)
         {
-            // Crie uma lista para armazenar as requisições
-              List<Requisicao> listaRequisicoes = new List<Requisicao>();
+            string nome_cliente;
+            int numero_pessoas;
+            int op;
+            Restaurante restaurante = new Restaurante();
 
-            Produto p1 = new Produto("castanha", "boa", 18.0, "grãos");
-
-            Cardapio c1 = new Cardapio();
-            c1.AdicionarProduto(p1);
-
-            // Exemplo de criação de uma requisição
-            Cliente cliente1 = new Cliente("João");
-            Requisicao req1 = new Requisicao(cliente1, 4);
-
-            // Adicione a requisição à lista
-            listaRequisicoes.Add(req1);
-
-            // Exemplo de outra requisição
-            Cliente cliente2 = new Cliente("Maria");
-            Requisicao req2 = new Requisicao(cliente2, 2);
-            listaRequisicoes.Add(req2);
-
-            // Exemplo de uso posterior das requisições
-            foreach (var req in listaRequisicoes)
+            do
             {
-                Console.WriteLine($"Cliente {req.ToString()}");
-                // Faça outras operações com os dados da requisição
-            }
+                Console.WriteLine("\n\nBEM VINDO AO RESTAURANTE :");
+                Console.WriteLine("1) Cadastrar cliente.");
+                Console.WriteLine("2) Encerrar requisição e buscar na fila.");
+                Console.WriteLine("3) Sair.");
 
-            Console.ReadKey();
+                Console.Write("\nDigite a opção desejada:");
+                op = int.Parse(Console.ReadLine());
+
+                switch (op)
+                {
+                    case 1:
+                        CadastrarCliente();
+                        break;
+
+                    case 2:
+                        FinalizarRequisicao();
+                        break;
+
+
+                    default:
+                        Console.WriteLine("Opção inválida!");
+                        break;
+                }
+
+            } while (op != 3);
+        }
+
+        public void CadastrarCliente()
+        {
+            Console.WriteLine("Digite o seu nome: ");
+            nome_cliente = Console.ReadLine();
+            Console.WriteLine("Digite o número de pessoas que estão com você:");
+            numero_pessoas = int.Parse(Console.ReadLine());
+            restaurante.AtenderCliente(nome_cliente, numero_pessoas);
+        }
+
+        public void FinalizarRequisicao()
+        {
+            Console.Write("Digite o ID da mesa para finalizar a requisição: ");
+            int idMesaFinalizar = int.Parse(Console.ReadLine());
+            Mesa mesaFinalizar = restaurante.mesas.Find(m => m.idMesa == idMesaFinalizar);
+            if (mesaFinalizar != null)
+            {
+                restaurante.FinalizarMesa(mesaFinalizar);
+                Console.WriteLine($"Requisição da mesa {idMesaFinalizar} finalizada.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Mesa {idMesaFinalizar} não encontrada.\n");
+            }
         }
     }
 }

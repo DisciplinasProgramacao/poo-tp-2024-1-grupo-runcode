@@ -8,10 +8,8 @@ namespace runcode_poo.codigo
     {
         public static void Main(string[] args)
         {
-            string nome_cliente;
-            int numero_pessoas;
+           
             int op;
-            Restaurante restaurante = new Restaurante();
 
             do
             {
@@ -44,6 +42,10 @@ namespace runcode_poo.codigo
 
         public void CadastrarCliente()
         {
+            Restaurante restaurante = new Restaurante();
+
+            string nome_cliente;
+            int numero_pessoas;
             Console.WriteLine("Digite o seu nome: ");
             nome_cliente = Console.ReadLine();
             Console.WriteLine("Digite o número de pessoas que estão com você:");

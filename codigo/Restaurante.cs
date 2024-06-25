@@ -178,8 +178,18 @@ namespace runcode_poo.codigo
         /// <param name="cliente">O cliente a ser atendido.</param>
         public override void AtenderCliente(Cliente cliente)
         {
-            Console.Write("Quantidade de pessoas para a mesa: ");
-            int quantidadePessoas = int.Parse(Console.ReadLine());
+            int quantidadePessoas;
+            do
+            {
+                Console.Write("Quantidade de pessoas para a mesa: ");
+                quantidadePessoas = int.Parse(Console.ReadLine());
+                if (quantidadePessoas > 8)
+                {
+                    Console.WriteLine($"Não existem mesas com capacidade para {quantidadePessoas} pessoas. Por favor, insira um valor até 8.");
+                }
+            } while (quantidadePessoas > 8);
+
+
 
             RequisicaoRestaurante requisicao = new RequisicaoRestaurante(cliente, quantidadePessoas);
             Mesa mesa = LocalizarMesa(requisicao);

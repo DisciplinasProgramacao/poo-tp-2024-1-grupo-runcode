@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Teste_poo
+namespace runcode_poo.codigo
 {
 
     class Program

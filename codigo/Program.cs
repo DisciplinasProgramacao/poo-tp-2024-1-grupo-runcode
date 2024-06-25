@@ -1,72 +1,194 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-
-namespace runcode_poo.codigo
+namespace Teste_poo
 {
+
     class Program
     {
-        public static void Main(string[] args)
-        {
-           
-            int op;
-
-            do
-            {
-                Console.WriteLine("\n\nBEM VINDO AO RESTAURANTE :");
-                Console.WriteLine("1) Cadastrar cliente.");
-                Console.WriteLine("2) Encerrar requisição e buscar na fila.");
-                Console.WriteLine("3) Sair.");
-
-                Console.Write("\nDigite a opção desejada:");
-                op = int.Parse(Console.ReadLine());
-
-                switch (op)
-                {
-                    case 1:
-                        CadastrarCliente();
-                        break;
-
-                    case 2:
-                        FinalizarRequisicao();
-                        break;
-
-
-                    default:
-                        Console.WriteLine("Opção inválida!");
-                        break;
-                }
-
-            } while (op != 3);
-        }
-
-        public void CadastrarCliente()
+        static void Main(string[] args)
         {
             Restaurante restaurante = new Restaurante();
+            Cafe cafe = new Cafe();
+            int clienteId = 1;
 
-            string nome_cliente;
-            int numero_pessoas;
-            Console.WriteLine("Digite o seu nome: ");
-            nome_cliente = Console.ReadLine();
-            Console.WriteLine("Digite o número de pessoas que estão com você:");
-            numero_pessoas = int.Parse(Console.ReadLine());
-            restaurante.AtenderCliente(nome_cliente, numero_pessoas);
+            while (true)
+            {
+                Console.Clear();
+                RenderLogo();
+                Console.WriteLine("Escolha uma opção:");
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("1. Restaurante");
+                Console.WriteLine("2. Café");
+                Console.WriteLine("3. Sair");
+                Console.WriteLine("==============================================");
+                Console.Write("> ");
+
+                try
+                {
+                    int escolha = int.Parse(Console.ReadLine());
+
+                    switch (escolha)
+                    {
+                        case (int)OpcaoGeral.Restaurante:
+                            bool sairMenuRestaurante = false;
+                            while (!sairMenuRestaurante)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("==============================================");
+                                Console.WriteLine("================= RESTAURANTE ================");
+                                Console.WriteLine("==============================================");
+                                Console.WriteLine();
+                                Console.WriteLine("Escolha uma opção:");
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("1. Atender cliente");
+                                Console.WriteLine("2. Atender Mesa");
+                                Console.WriteLine("3. Visualizar Restaurante");
+                                Console.WriteLine("4. Histórico de Requisições Encerradas");
+                                Console.WriteLine("5. Voltar");
+                                Console.WriteLine("==============================================");
+                                Console.Write("> ");
+                                int opcaoRestaurante = int.Parse(Console.ReadLine());
+
+                                switch (opcaoRestaurante)
+                                {
+                                    case (int)OpcaoMenuRestaurante.AtenderCliente:
+                                        Console.Write("Digite o nome do cliente: ");
+                                        string nomeCliente = Console.ReadLine();
+                                        Cliente novoCliente = new Cliente(clienteId++, nomeCliente);
+                                        try
+                                        {
+                                            restaurante.AtenderCliente(novoCliente);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine($"Erro ao atender cliente: {ex.Message}");
+                                        }
+                                        break;
+                                    case (int)OpcaoMenuRestaurante.AtenderMesa:
+                                        bool temMesas = restaurante.VisualizarMesas();
+                                        if (temMesas)
+                                        {
+                                            try
+                                            {
+                                                Console.WriteLine("Digite o ID da mesa para atendimento:");
+                                                int idMesa = int.Parse(Console.ReadLine());
+                                                RequisicaoRestaurante requisicao = restaurante.LocalizarRequisicaoPorMesa(idMesa);
+                                                if (requisicao != null)
+                                                {
+                                                    restaurante.GerenciarAtendimento(requisicao);
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Mesa não encontrada ou não possui atendimento em andamento.");
+                                                }
+                                            }
+                                            catch (FormatException)
+                                            {
+                                                Console.WriteLine("Por favor, digite um número válido para o ID da mesa.");
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Console.WriteLine($"Ocorreu um erro: {ex.Message}");
+                                            }
+                                        }
+                                        break;
+
+                                    case (int)OpcaoMenuRestaurante.VisualizarRestaurante:
+                                        restaurante.VisualizarRestaurante();
+                                        break;
+                                    case (int)OpcaoMenuRestaurante.HistoricoRequisicoes:
+                                        restaurante.ExibirHistorico();
+                                        break;
+                                    case (int)OpcaoMenuRestaurante.Voltar:
+                                        sairMenuRestaurante = true;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Opção inválida.");
+                                        break;
+                                }
+                            }
+                            break;
+                        case (int)OpcaoGeral.Cafe:
+                            bool sairMenuCafe = false;
+                            while (!sairMenuCafe)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("==============================================");
+                                Console.WriteLine("==================== CAFÉ ====================");
+                                Console.WriteLine("==============================================");
+                                Console.WriteLine("Escolha uma opção:");
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine("1. Atender Cliente");
+                                Console.WriteLine("2. Histórico de Atendimentos");
+                                Console.WriteLine("3. Voltar");
+                                Console.WriteLine("==============================================");
+                                Console.Write("> ");
+
+                                int opcaoCafe = int.Parse(Console.ReadLine());
+
+                                switch (opcaoCafe)
+                                {
+                                    case (int)OpcaoMenuCafe.AtenderCliente:
+                                        Console.Write("Digite o nome do cliente:");
+                                        string nomeClienteCafe = Console.ReadLine();
+                                        Cliente novoClienteCafe = new Cliente(clienteId++, nomeClienteCafe);
+                                        try
+                                        {
+                                            cafe.AtenderCliente(novoClienteCafe);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine($"Erro ao atender cliente: {ex.Message}");
+                                        }
+                                        break;
+                                    case (int)OpcaoMenuCafe.ExibirHistorico:
+                                        cafe.ExibirHistorico();
+                                        break;
+                                    case (int)OpcaoMenuCafe.Voltar:
+                                        sairMenuCafe = true;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Opção inválida.");
+                                        break;
+                                }
+                            }
+                            break;
+                        case (int)OpcaoGeral.Sair:
+                            return;
+                        default:
+                            Console.WriteLine("Opção inválida.");
+                            break;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Por favor, digite um número válido para a opção.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ocorreu um erro: {ex.Message}");
+                }
+            }
         }
 
-        public void FinalizarRequisicao()
+        public static void RenderLogo()
         {
-            Console.Write("Digite o ID da mesa para finalizar a requisição: ");
-            int idMesaFinalizar = int.Parse(Console.ReadLine());
-            Mesa mesaFinalizar = restaurante.mesas.Find(m => m.idMesa == idMesaFinalizar);
-            if (mesaFinalizar != null)
-            {
-                restaurante.FinalizarMesa(mesaFinalizar);
-                Console.WriteLine($"Requisição da mesa {idMesaFinalizar} finalizada.\n");
-            }
-            else
-            {
-                Console.WriteLine($"Mesa {idMesaFinalizar} não encontrada.\n");
-            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(@"
+   ____   ____     _____ ____  __  __ _____ _____           _____  __      ________ _____          _   _           _____ 
+  / __ \ / __ \   / ____/ __ \|  \/  |_   _|  __ \   /\    / ____| \ \    / /  ____/ ____|   /\   | \ | |   /\    / ____|
+ | |  | | |  | | | |   | |  | | \  / | | | | |  | | /  \  | (___    \ \  / /| |__ | |  __   /  \  |  \| |  /  \  | (___  
+ | |  | | |  | | | |   | |  | | |\/| | | | | |  | |/ /\ \  \___ \    \ \/ / |  __|| | |_ | / /\ \ | . ` | / /\ \  \___ \ 
+ | |__| | |__| | | |___| |__| | |  | |_| |_| |__| / ____ \ ____) |    \  /  | |___| |__| |/ ____ \| |\  |/ ____ \ ____) |
+  \____/ \____/   \_____\____/|_|  |_|_____|_____/_/    \_\_____/      \/   |______\_____/_/    \_\_| \_/_/    \_\_____/                                                                                                                                                                                                                                               
+");
+            Console.WriteLine("==========================================================================================================================");
+            Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+            Console.WriteLine("==========================================================================================================================");
+            Console.WriteLine();
+            Console.ResetColor();
         }
     }
 }

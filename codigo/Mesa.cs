@@ -6,34 +6,52 @@ using System.Threading.Tasks;
 
 namespace runcode_poo.codigo
 {
-    class Mesa
+    /// <summary>
+    /// Representa uma mesa com ID, capacidade e disponibilidade.
+    /// </summary>
+    public class Mesa
     {
-        private int id;
-        private int quantidadeLugares;
-        private bool ocupada;
+        private int Id { get; set; }
+        private int Capacidade { get; set; }
+        private bool Disponivel { get; set; } = true;
 
-        public Mesa(int numero, int qtdLugares) 
-        { 
-            this.id = numero;
-            this.quantidadeLugares = qtdLugares;
-            this.ocupada = false;
-
-        }
-
-        public bool verifivarDisponibilidade()
+        /// <summary>
+        /// Inicializa uma nova instância da classe <see cref="Mesa"/> com o id e capacidade especificados.
+        /// </summary>
+        /// <param name="id">O identificador da mesa.</param>
+        /// <param name="capacidade">A capacidade da mesa.</param>
+        public Mesa(int id, int capacidade)
         {
-            return ocupada;
+            this.Id = id;
+            this.Capacidade = capacidade;
         }
 
-        public void ocuparMesa()
-        {
-            this.ocupada = true;
-        }
+        /// <summary>
+        /// Retorna o identificador da mesa.
+        /// </summary>
+        /// <returns>O identificador da mesa.</returns>
+        public int RetornaIdMesa() => this.Id;
 
-        public void liberarMesa()
-        {
-            this.ocupada = false;
-        }
+        /// <summary>
+        /// Retorna a capacidade da mesa.
+        /// </summary>
+        /// <returns>A capacidade da mesa.</returns>
+        public int RetornaCapacidade() => this.Capacidade;
 
+        /// <summary>
+        /// Verifica se a mesa está disponível.
+        /// </summary>
+        /// <returns>True se a mesa está disponível; caso contrário, false.</returns>
+        public bool VerificarDisponibilidade() => this.Disponivel;
+
+        /// <summary>
+        /// Marca a mesa como ocupada.
+        /// </summary>
+        public void OcuparMesa() => this.Disponivel = false;
+
+        /// <summary>
+        /// Marca a mesa como disponível.
+        /// </summary>
+        public void LiberarMesa() => this.Disponivel = true;
     }
 }

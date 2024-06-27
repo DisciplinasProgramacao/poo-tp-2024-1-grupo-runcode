@@ -23,10 +23,23 @@ namespace runcode_poo.codigo
         protected List<Requisicao> HistoricoAtendimento { get; set; } = new List<Requisicao>();
 
         /// <summary>
-        /// Método abstrato para atender um cliente.
+        /// Método para atender cliente com um parâmetro.
         /// </summary>
         /// <param name="cliente">O cliente a ser atendido.</param>
-        public abstract void AtenderCliente(Cliente cliente);
+        public virtual void AtenderCliente(Cliente cliente)
+        {
+            throw new NotImplementedException("Este método não foi implementado.");
+        }
+
+        /// <summary>
+        /// Método virtual para atender cliente com dois parâmetros.
+        /// </summary>
+        /// <param name="cliente">O cliente a ser atendido.</param>
+        /// <param name="quantidadePessoas">A quantidade de pessoas a serem atendidas.</param>
+        public virtual void AtenderCliente(Cliente cliente, int quantidadePessoas)
+        {
+            throw new NotImplementedException("Este método não foi implementado.");
+        }
 
         /// <summary>
         /// Método abstrato para exibir o cardápio do estabelecimento.

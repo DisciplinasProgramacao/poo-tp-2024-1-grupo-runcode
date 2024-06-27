@@ -11,7 +11,6 @@ namespace runcode_poo.codigo
     /// </summary>
     public class Produto
     {
-        // Propriedades privadas do produto
         private int Id { get; set; }
         private string Nome { get; set; }
         private double Preco { get; set; }

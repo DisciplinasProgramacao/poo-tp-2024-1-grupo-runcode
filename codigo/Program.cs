@@ -54,43 +54,83 @@ namespace runcode_poo.codigo
                                 switch (opcaoRestaurante)
                                 {
                                     case (int)OpcaoMenuRestaurante.AtenderCliente:
+
                                         Console.Write("Digite o nome do cliente: ");
                                         string nomeCliente = Console.ReadLine();
                                         Cliente novoCliente = new Cliente(clienteId++, nomeCliente);
-                                        try
-                                        {
-                                            restaurante.AtenderCliente(novoCliente);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            Console.WriteLine($"Erro ao atender cliente: {ex.Message}");
-                                        }
-                                        break;
-                                    case (int)OpcaoMenuRestaurante.AtenderMesa:
-                                        bool temMesas = restaurante.VisualizarMesas();
-                                        if (temMesas)
+
+                                        int quantidadePessoas = 0;
+                                        bool quantidadeValida = false;
+                                        while (!quantidadeValida)
                                         {
                                             try
                                             {
-                                                Console.WriteLine("Digite o ID da mesa para atendimento:");
-                                                int idMesa = int.Parse(Console.ReadLine());
-                                                RequisicaoRestaurante requisicao = restaurante.LocalizarRequisicaoPorMesa(idMesa);
-                                                if (requisicao != null)
+                                                Console.Write("Quantidade de pessoas para a mesa: ");
+                                                quantidadePessoas = int.Parse(Console.ReadLine());
+
+                                                if (quantidadePessoas > 8 || quantidadePessoas <= 0)
                                                 {
-                                                    restaurante.GerenciarAtendimento(requisicao);
+                                                    throw new ArgumentOutOfRangeException(null, "A quantidade de pessoas deve ser entre 1 e 8.");
                                                 }
-                                                else
-                                                {
-                                                    Console.WriteLine("Mesa não encontrada ou não possui atendimento em andamento.");
-                                                }
+                                                quantidadeValida = true;
+                                            }
+                                            catch (ArgumentOutOfRangeException ex)
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.Red;
+                                                Console.WriteLine($"Erro: {ex.Message}");
+                                                Console.ResetColor();
                                             }
                                             catch (FormatException)
                                             {
-                                                Console.WriteLine("Por favor, digite um número válido para o ID da mesa.");
-                                            }
-                                            catch (Exception ex)
+                                                Console.WriteLine("Formato inválido. Por favor, insira um número inteiro.");
+                                            }               
+                                        }
+                                        restaurante.AtenderCliente(novoCliente, quantidadePessoas);
+
+                                        break;
+                                    case (int)OpcaoMenuRestaurante.AtenderMesa:
+                                        List<int> mesasEmAtendimento = restaurante.VisualizarMesas();
+                                        if (mesasEmAtendimento.Count > 0)
+                                        {
+                                            while (true)
                                             {
-                                                Console.WriteLine($"Ocorreu um erro: {ex.Message}");
+                                                try
+                                                {
+                                                    Console.WriteLine("Digite o ID da mesa para atendimento (ou 0 para sair):");
+                                                    int idMesa = int.Parse(Console.ReadLine());
+
+                                                    if (idMesa == 0)
+                                                    {
+                                                        Console.WriteLine("Saindo do atendimento de mesas.");
+                                                        break;
+                                                    }
+
+                                                    if (!mesasEmAtendimento.Contains(idMesa))
+                                                    {
+                                                        throw new MesaNaoEmAtendimentoException("Mesa não encontrada ou não possui atendimento em andamento.");
+                                                    }
+
+                                                    RequisicaoRestaurante requisicao = restaurante.LocalizarRequisicaoPorMesa(idMesa);
+                                                    if (requisicao != null)
+                                                    {
+                                                        restaurante.GerenciarAtendimento(requisicao);
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("Essa mesa não possui atendimento em andamento.");
+                                                    }
+                                                }
+                                                catch (MesaNaoEmAtendimentoException ex)
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.Red;
+                                                    Console.WriteLine($"Erro: {ex.Message}");
+                                                    Console.ResetColor();
+                                                }
+                                                catch (FormatException)
+                                                {
+                                                    Console.WriteLine("Por favor, digite um número válido para o ID da mesa.");
+                                                }
                                             }
                                         }
                                         break;
@@ -111,6 +151,7 @@ namespace runcode_poo.codigo
                             }
                             break;
                         case (int)OpcaoGeral.Cafe:
+
                             bool sairMenuCafe = false;
                             while (!sairMenuCafe)
                             {
@@ -134,21 +175,17 @@ namespace runcode_poo.codigo
                                         Console.Write("Digite o nome do cliente:");
                                         string nomeClienteCafe = Console.ReadLine();
                                         Cliente novoClienteCafe = new Cliente(clienteId++, nomeClienteCafe);
-                                        try
-                                        {
-                                            cafe.AtenderCliente(novoClienteCafe);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            Console.WriteLine($"Erro ao atender cliente: {ex.Message}");
-                                        }
+                                        cafe.AtenderCliente(novoClienteCafe);                                     
                                         break;
+
                                     case (int)OpcaoMenuCafe.ExibirHistorico:
                                         cafe.ExibirHistorico();
                                         break;
+
                                     case (int)OpcaoMenuCafe.Voltar:
                                         sairMenuCafe = true;
                                         break;
+
                                     default:
                                         Console.WriteLine("Opção inválida.");
                                         break;
@@ -164,11 +201,7 @@ namespace runcode_poo.codigo
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Por favor, digite um número válido para a opção.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Ocorreu um erro: {ex.Message}");
+                    Console.WriteLine("Por favor, digite um número de 1 a 3.");
                 }
             }
         }
@@ -190,5 +223,11 @@ namespace runcode_poo.codigo
             Console.WriteLine();
             Console.ResetColor();
         }
+
+        public class MesaNaoEmAtendimentoException : Exception
+        {
+            public MesaNaoEmAtendimentoException(string message) : base(message) { }
+        }
+
     }
 }

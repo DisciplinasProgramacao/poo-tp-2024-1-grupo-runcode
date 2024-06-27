@@ -79,11 +79,12 @@ namespace runcode_poo.codigo
         /// Exibe as mesas que estão em atendimento.
         /// </summary>
         /// <returns>True se houver mesas em atendimento, caso contrário, false.</returns>
-        public bool VisualizarMesas()
+        public List<int> VisualizarMesas()
         {
             Console.WriteLine("============ MESAS EM ATENDIMENTO ============");
             Console.WriteLine("==============================================");
             bool temMesasEmAtendimento = false;
+            List<int> mesasEmAtendimento = new List<int>();
 
             if (this.Mesas.Count > 0)
             {
@@ -95,6 +96,7 @@ namespace runcode_poo.codigo
                     if (!disponibilidade)
                     {
                         temMesasEmAtendimento = true;
+                        mesasEmAtendimento.Add(idMesa);
                         Console.Write($"Mesa {idMesa} - ");
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Em andamento");
@@ -109,13 +111,13 @@ namespace runcode_poo.codigo
                 Console.WriteLine("Sem mesas para atendimento!");
                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu...");
                 Console.ReadKey();
-                return false;
             }
 
             Console.WriteLine("==============================================");
             Console.WriteLine();
-            return true;
+            return mesasEmAtendimento;
         }
+
 
         /// <summary>
         /// Exibe as mesas e a fila de espera do restaurante.
@@ -176,20 +178,8 @@ namespace runcode_poo.codigo
         /// Atende um cliente específico.
         /// </summary>
         /// <param name="cliente">O cliente a ser atendido.</param>
-        public override void AtenderCliente(Cliente cliente)
+        public override void AtenderCliente(Cliente cliente, int quantidadePessoas)
         {
-            int quantidadePessoas;
-            do
-            {
-                Console.Write("Quantidade de pessoas para a mesa: ");
-                quantidadePessoas = int.Parse(Console.ReadLine());
-                if (quantidadePessoas > 8)
-                {
-                    Console.WriteLine($"Não existem mesas com capacidade para {quantidadePessoas} pessoas. Por favor, insira um valor até 8.");
-                }
-            } while (quantidadePessoas > 8);
-
-
 
             RequisicaoRestaurante requisicao = new RequisicaoRestaurante(cliente, quantidadePessoas);
             Mesa mesa = LocalizarMesa(requisicao);
